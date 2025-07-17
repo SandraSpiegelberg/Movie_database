@@ -15,7 +15,7 @@ API_KEY = os.getenv('API_KEY')
 
 API_URL = "http://www.omdbapi.com/?"
 
-DB_URL = "sqlite:///movies.db"
+DB_URL = "sqlite:///data//movies.db"
 
 
 
@@ -38,8 +38,8 @@ with engine.connect() as connection:
 
 def list_movies():
     """Retrieve all movies from the database."""
-    with engine.connect() as connection:
-        result = connection.execute(
+    with engine.connect() as con:
+        result = con.execute(
             text("SELECT title, year, rating, poster_image FROM movies"))
         movies = result.fetchall()
 
@@ -68,11 +68,11 @@ def add_movie(title):
             print(colored(f"Error: {res.status_code}, {req_err}", "red"))
             return
 
-    with engine.connect() as connection:
+    with engine.connect() as con:
         try:
-            connection.execute(text("INSERT INTO movies (title, year, rating, poster_image) VALUES (:title, :year, :rating, :poster_image)"),
+            con.execute(text("INSERT INTO movies (title, year, rating, poster_image) VALUES (:title, :year, :rating, :poster_image)"),
                                {"title": movie_title, "year": movie_year, "rating": movie_rating, "poster_image": movie_poster})
-            connection.commit()
+            con.commit()
             print(colored(f"Movie '{movie_title}' added successfully.", "green"))
         except Exception as e:
             print(colored(f"Error: {e}", "red"))
@@ -80,11 +80,11 @@ def add_movie(title):
 
 def delete_movie(title):
     """Delete a movie from the database."""
-    with engine.connect() as connection:
+    with engine.connect() as con:
         try:
-            connection.execute(text("DELETE FROM movies WHERE title = :title"),
+            con.execute(text("DELETE FROM movies WHERE title = :title"),
                                {"title": title})
-            connection.commit()
+            con.commit()
             print(colored(f"Movie '{title}' deleted successfully.", "green"))
         except Exception as e:
             print(colored(f"Error: {e}", "red"))
@@ -92,11 +92,11 @@ def delete_movie(title):
 
 def update_movie(title, rating):
     """Update a movie's rating in the database."""
-    with engine.connect() as connection:
+    with engine.connect() as con:
         try:
-            connection.execute(text("UPDATE movies SET rating = :rating WHERE title = :title"),
+            con.execute(text("UPDATE movies SET rating = :rating WHERE title = :title"),
                                {"title": title, "rating": rating})
-            connection.commit()
+            con.commit()
             print(colored(f"Movie '{title}' updated successfully.", "green"))
         except Exception as e:
             print(colored(f"Error: {e}", "red"))

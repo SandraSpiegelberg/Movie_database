@@ -2,7 +2,7 @@
 .idea/
 __pycache__/
 .venv
-.DS_Store#
+.DS_Store
 /__pycache__
 
 #created files from the app

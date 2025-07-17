@@ -29,7 +29,7 @@ def command_list_movies():
     for title, value in movies.items():
         print(f"{title} ({value['year']}): {value['rating']}")
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_add_movie():
@@ -49,7 +49,7 @@ def command_add_movie():
         except ValueError as e:
             print(colored(f"Error: {e}", "red"))
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_delete_movie():
@@ -63,7 +63,7 @@ def command_delete_movie():
     else:
         print(colored(f"Movie {title} doesn't exist in the database", "light_red"))
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_update_movie():
@@ -88,7 +88,7 @@ def command_update_movie():
     else:
         print(colored(f"Movie {title} doesn't exist in the database", "light_red"))
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_statistics():
@@ -128,7 +128,7 @@ def command_statistics():
     except ValueError as e:
         print(colored(f"The movie database is empty, please add first some movies to the database. {e}", "red"))
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_rating_histogram():
@@ -150,11 +150,11 @@ def command_rating_histogram():
     user_save = input("Want you to save the plot in a file (y/n)? ")
     if user_save == 'y' or user_save.lower() == 'yes':
         fig_name = input("Enter a name of the plot: ")
-        fig.savefig(f"{fig_name}.png")
+        fig.savefig(f"data/{fig_name}.png")
         plt.close()
-        input(colored("Press enter to continue \n", "yellow"))
+        input(colored("\nPress enter to continue \n", "yellow"))
     else:
-        input(colored("Press enter to continue \n", "yellow"))
+        input(colored("\nPress enter to continue \n", "yellow"))
 
     
 
@@ -171,7 +171,7 @@ def command_random_movie():
     except IndexError as e:
         print(colored(f"The movie database is empty, please add first some movies to the database. {e}", "red"))
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_search_movie():
@@ -205,7 +205,7 @@ def command_search_movie():
         if user_choice_add == 'y' or user_choice_add == 'yes':
             movies_sql.add_movie(user_search)    
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_sorted_by_rating():
@@ -215,11 +215,11 @@ def command_sorted_by_rating():
     movies = movies_sql.list_movies()
 
     sort_movies = sorted(movies.items(), key=lambda item: (item[1]['rating'], item[0]), reverse=True)
-    print("Movies sorted by rating: \n")
+    print("\nMovies sorted by rating: ")
     for movie, value in sort_movies:
         print(f"{movie}: {value['rating']}")
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_sorted_by_year():
@@ -235,11 +235,11 @@ def command_sorted_by_year():
         user_reverse = False
 
     sort_movies = sorted(movies.items(), key=lambda item: (item[1]['year'], item[0]), reverse=user_reverse)
-    print("Movies sorted by year: \n")
+    print("\nMovies sorted by year: ")
     for movie, value in sort_movies:
         print(f"{movie} ({value['year']}): {value['rating']}")
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def command_filter_by_movies():
@@ -272,7 +272,7 @@ def command_filter_by_movies():
     for movie, value in filtered_movies.items():
         print(f"{movie} ({value['year']}): {value['rating']}")
 
-    input(colored("Press enter to continue \n", "yellow"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def serialize_movie():
@@ -310,11 +310,11 @@ def command_generate_website():
     movie_html_text = movie_html_text.replace(
         '__TEMPLATE_TITLE__', 'Your Own Movie App')
 
-    with open('index.html', 'w', encoding='utf-8') as movies_html:
+    with open('data/index.html', 'w', encoding='utf-8') as movies_html:
         movies_html.write(movie_html_text)
 
-    print(colored("Website was generated successfully. See index.html", "green"))
-    input(colored("Press enter to continue \n", "yellow"))
+    print(colored("Website was generated successfully. See data/index.html", "green"))
+    input(colored("\nPress enter to continue \n", "yellow"))
 
 
 def show_menu_with_input():
@@ -329,7 +329,7 @@ def show_menu_with_input():
     # Input Loop
     while True:
         try:
-            user_choice = int(input("Enter your choice (0-12): "))
+            user_choice = int(input("\nEnter your choice (0-12): "))
             if user_choice in MENU:
                 return MENU[user_choice]['function']
         except ValueError as e:
